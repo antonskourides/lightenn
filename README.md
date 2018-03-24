@@ -3,7 +3,7 @@
 Hello Machine Learning Community!
 
 LighteNN is a lightweight Deep Learning library written from scratch, using
-numpy and a handful of supporting packages. All the backprop math was worked out
+numpy and a handful of supporting packages. All the backprop math was re-written
 from first principles (except for the initial Cost functions), so if my 
 implementation looks a little quirky or different, that's why :)
 
