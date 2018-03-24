@@ -1,0 +1,3 @@
+The software in this repository is protected under GitHub’s Terms of Service, available here:
+
+https://help.github.com/articles/github-terms-of-service/#f-copyright-and-content-ownership
