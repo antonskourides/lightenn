@@ -38,15 +38,6 @@ class Layer:
         self.dropout_mask = np.ones((size,), dtype=np.float)
         self.mult_flag = False
         
-    def fail_on_nan_or_inf(self, a):
-        f = a.flatten()
-        for i in f:
-            if math.isnan(i) == True:
-                exit(1)
-        for i in f:
-            if np.isinf(i) == True:
-                exit(1)
-
     def compute_reg_terms(self):
         
         reg = self.nn_config['regularizer']
