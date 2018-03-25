@@ -11,11 +11,11 @@ Features supported so far:
 
 - Cross-Entropy and Squared Error cost.
 - Sigmoid, ReLU, and Linear activations.
-- L1, L2, and Inverted Dropout regularization (in this implementation, dropout_p
-is the probability of *dropping* a node, not keeping it.)
+- L1, L2, and Inverted Dropout regularization. Note: in this implementation, 
+`dropout_p` is the probability of *dropping* a node, not keeping it.
 - Full-batch or Stochastic Gradient Descent (SGD) training.
-- Model persistence using the *serialize* package (just calling pickle 
-underneath)
+- Model persistence using the `serialize` package (just calling pickle 
+underneath.)
 
 Convolutional Neural Network (CNN) support coming soon!
 
