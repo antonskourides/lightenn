@@ -17,7 +17,7 @@ Features supported so far:
 - Model persistence using the `serialize` package (just calling pickle 
 underneath.)
 
-Convolutional Neural Network (CNN) support coming soon!
+Convolutional Neural Network (CNN) and GPU support coming soon!
 
 Please see the ./usage_examples/ folder for sample use cases. Some toy examples
 are included in:
