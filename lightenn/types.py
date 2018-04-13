@@ -6,7 +6,7 @@ class ActivationType(Enum):
     RELU = 2
 
 class LossType(Enum):
-    SQUARED_ERROR = 0,
+    SQUARED_ERROR = 0
     CROSS_ENTROPY = 1
 
 class LayerType(Enum):
@@ -15,9 +15,9 @@ class LayerType(Enum):
     OUTPUT = 2
 
 class RegType(Enum):
-    L2 = 0,
+    L2 = 0
     L1 = 1
 
 class GradType(Enum):
-    WEIGHT = 0,
+    WEIGHT = 0
     BIAS = 1
