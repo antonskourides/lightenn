@@ -57,12 +57,10 @@ class NNTrainer:
     #
     # For each epoch:
     #
-    # - Sample mini-batches of size B without replacement
-    # - Compute your gradient vector for each example in the mini-batch
-    # - Take the sum of your gradients over the mini-batch, and use this
-    # summed vector to do your weight and bias updates
-    #
-    def train_sgd(self, training_set, num_epochs, batch_size=128, validation_set=None):
+    # - Shuffle training data
+    # - Sample individual examples without replacement
+    # - For each example, compute your gradient vector and adjust the weights
+    def train_sgd(self, training_set, num_epochs, validation_set=None):
     
         # Start by doing some basic checks on the inputs:
         self._check_training_set(training_set)
@@ -82,41 +80,27 @@ class NNTrainer:
             print('Starting epoch', epoch+1)
             
             epoch_error = 0.0
-            training_indices = list(range(len(training_x)))
             
-            while len(training_indices) > 0:
-                
-                # Take a mini-batch sample
-                sample_indices, training_indices = utils.sample_indices(training_indices, size=batch_size, replace=False)
-                mini_batch_x = [training_x[i] for i in sample_indices]
-                mini_batch_y = [training_y[i] for i in sample_indices]
-                mini_batch_sz = len(mini_batch_x)
-                
-                # Clear the gradient accumulators in your layers
-                for i in range(1, len(self.layers)):
-                    self.layers[i].clear_total_grads()
+            # Shuffle your data. Adapted from:
+            # https://stackoverflow.com/questions/23289547/shuffle-two-list-at-once-with-same-order
+            indices = np.arange(len(training_x))
+            np.random.shuffle(indices)
+            training_x_shuffled = training_x[indices]
+            training_y_shuffled = training_y[indices]
             
-                # Load dropout masks for this mini-batch, if applicable
+            for i, x in enumerate(training_x_shuffled):
+                
+                # Load dropout masks for this example, if applicable
                 self._load_dropout_masks()
                 
-                # Iterate through the mini-batch
-                for i, x in enumerate(mini_batch_x):
-                    y = mini_batch_y[i]
-                    self.layers[0].values = x # feed the input values
-                    self._forward() # do the forward pass
-                    y_hat = self.layers[len(self.layers)-1].activations # get y_hat
-                    epoch_error += utils.compute_example_loss(y, y_hat, self.config['loss_type'],
-                                                              self.config['regularizer']) # compute error for this example
-                    self._backward_compute_grads(y, y_hat)
-                    # Update the gradient accumulators in your layers
-                    for j in range(1, len(self.layers)):
-                        self.layers[j].total_grad_wgts += self.layers[j].grads_wgts
-                        self.layers[j].total_grad_biases += self.layers[j].grads_biases
-    
-                # Note: np.copyto(dst, src). Destination array is first!
-                for i in range(1, len(self.layers)):
-                    np.copyto(self.layers[i].grads_wgts, self.layers[i].total_grad_wgts)
-                    np.copyto(self.layers[i].grads_biases, self.layers[i].total_grad_biases)
+                # Train on the example
+                y = training_y_shuffled[i]
+                self.layers[0].values = x # feed the input values
+                self._forward() # do the forward pass
+                y_hat = self.layers[len(self.layers)-1].activations # get y_hat
+                epoch_error += utils.compute_example_loss(y, y_hat, self.config['loss_type'],
+                                                          self.config['regularizer']) # compute error for this example
+                self._backward_compute_grads(y, y_hat)
                 
                 # Adjust the weights and biases based on the average gradients
                 self._backward_adjust()

@@ -4,8 +4,8 @@ Hello Machine Learning Community!
 
 LighteNN is a lightweight Deep Learning library written from scratch, using
 numpy and a handful of supporting packages. The backprop implementation was 
-re-derived from first principles (except for the initial Cost functions), so if 
-my build looks a little quirky or different, that's why :)
+re-derived from first principles (except for the initial Cost functions.) No
+copy/pasting of math or code!
 
 Features supported so far:
 
@@ -13,7 +13,7 @@ Features supported so far:
 - Sigmoid, ReLU, and Linear activations.
 - L1, L2, and Inverted Dropout regularization. Note: in this implementation, 
 `dropout_p` is the probability of *dropping* a node, not keeping it.
-- Full-batch or Stochastic Gradient Descent (SGD) training.
+- Stochastic Gradient Descent (SGD) training.
 - Model persistence using the `serialize` package (just calling pickle 
 underneath.)
 

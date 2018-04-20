@@ -58,9 +58,9 @@ nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rat
 # Numerical gradient check
 nn.check_gradients(np.array([1.0], dtype=np.float))
 
-# Train in full-batch mode
+# Train in SGD mode
 t_0 = time.time()
-nn.train_full((training_x, training_y), num_epochs, validation_set=(validation_x, validation_y))
+nn.train_sgd((training_x, training_y), num_epochs, validation_set=(validation_x, validation_y))
 t_1 = time.time()
 tot_time = round(t_1 - t_0, 2)
 print('Total time (in seconds):', tot_time)

@@ -52,13 +52,9 @@ class NeuralNet:
         self.builder.initialize(self.config)
         self.initialized = True
     
-    def train_full(self, training_set, num_epochs, validation_set=None):
+    def train_sgd(self, training_set, num_epochs, validation_set=None):
         assert (self.initialized), ERR_NOT_INIT
-        self.trainer.train_full(training_set, num_epochs, validation_set=validation_set)
-    
-    def train_sgd(self, training_set, num_epochs, batch_size=128, validation_set=None):
-        assert (self.initialized), ERR_NOT_INIT
-        self.trainer.train_sgd(training_set, num_epochs, batch_size=batch_size, validation_set=validation_set)
+        self.trainer.train_sgd(training_set, num_epochs, validation_set=validation_set)
 
     def get_accuracy(self, data_set):
         assert (self.initialized), ERR_NOT_INIT

@@ -43,10 +43,6 @@ stddev = 1.0
 # Percentage of validation data
 val_perc = 0.2
 
-# Delta and Epsilon for gradient checking
-delta = 0.0001
-epsilon = 1e-8
-
 mnist_data_root = './data/'
 training_x, training_y = load_training_data(mnist_data_root + 'mnist_train_x.pkl',
                                             mnist_data_root + 'mnist_train_y.pkl')
@@ -72,7 +68,7 @@ else:
     # Train in SGD mode
     print('Training ...')
     t_0 = time.time()
-    nn.train_sgd((training_x, training_y), num_epochs, batch_size=128, validation_set=(validation_x, validation_y))
+    nn.train_sgd((training_x, training_y), num_epochs, validation_set=(validation_x, validation_y))
     t_1 = time.time()
     tot_time = round(t_1 - t_0, 2)
     print('Total time (in seconds):', tot_time)
