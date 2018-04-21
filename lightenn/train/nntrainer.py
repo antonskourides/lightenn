@@ -9,50 +9,6 @@ class NNTrainer:
         self.layers = layers
         self.config = config
     
-    # Full-batch training
-    def train_full(self, training_set, num_epochs, validation_set=None):
-    
-        # Start by doing some basic checks on the inputs:
-        self._check_training_set(training_set)
-        training_x = training_set[0]
-        training_y = training_set[1]
-        validation_x = None
-        validation_y = None
-        
-        if validation_set is not None:
-            self._check_training_set(validation_set)
-            validation_x = validation_set[0]
-            validation_y = validation_set[1]
-    
-        # Run num_epochs of training:
-        for epoch in range(num_epochs):
-        
-            print('Starting epoch', epoch+1)
-            
-            epoch_error = 0.0
-            
-            for x_i, x in enumerate(training_x):
-                y = training_y[x_i]
-                self.layers[0].values = x # feed the input values
-                self._load_dropout_masks() # load dropout masks, if applicable
-                self._forward() # do the forward pass
-                y_hat = self.layers[len(self.layers)-1].activations # get y_hat
-                epoch_error += utils.compute_example_loss(y, y_hat, self.config['loss_type'],
-                                                          self.config['regularizer']) # compute error for this example
-                self._backward_compute_grads(y, y_hat) # do the backward pass
-                self._backward_adjust()
-            
-            # Output error for this epoch
-            print('Error after epoch', epoch+1, ':', epoch_error)
-            
-            # Clear dropout masks, if applicable
-            self._clear_dropout_masks()
-            
-            # Run validation after every epoch, if validation set supplied
-            if validation_set is not None:
-                val_acc = self.get_accuracy(validation_set)
-                print('Validation accuracy after epoch', epoch+1, ':', val_acc)
-
     # To support Stochastic Gradient Descent (SGD):
     #
     # For each epoch:
@@ -98,7 +54,8 @@ class NNTrainer:
                 self.layers[0].values = x # feed the input values
                 self._forward() # do the forward pass
                 y_hat = self.layers[len(self.layers)-1].activations # get y_hat
-                epoch_error += utils.compute_example_loss(y, y_hat, self.config['loss_type'],
+                epoch_error += utils.compute_example_loss(y, y_hat, self.layers,
+                                                          self.config['loss_type'],
                                                           self.config['regularizer']) # compute error for this example
                 self._backward_compute_grads(y, y_hat)
                 

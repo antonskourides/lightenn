@@ -63,7 +63,7 @@ class NeuralNet:
     def predict(self, x):
         assert (self.initialized), ERR_NOT_INIT
         return self.trainer.predict(x)
-
+    
     # TODO: A full numerical gradient check on a large network can take a very
     # long time. Add a 'stochastic' parameter.
     def check_gradients(self, y, delta=DELTA, epsilon=EPSILON):

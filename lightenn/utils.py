@@ -7,6 +7,26 @@ from lightenn import types
 ALMOST_0 = 0.0000001
 ALMOST_1 = 0.9999999
 
+# TODO: this is not vectorized
+def compute_example_loss(y, y_hat, layers, loss_type, regularizer):
+    
+    # Account for regularization, if present
+    reg_term = 0.0
+    if regularizer is not None:
+        lambd = regularizer[1]
+        if regularizer[0] == types.RegType.L1:
+            for i in range(1, len(layers)):
+                reg_term += lambd * np.sum(np.absolute(layers[i].wgts))
+        elif regularizer[0] == types.RegType.L2:
+            for i in range(1, len(layers)):
+                reg_term += lambd * np.sum(np.power(layers[i].wgts, 2))
+    
+    # We return the sum to account for the multi-class case
+    if loss_type == types.LossType.SQUARED_ERROR:
+        return np.sum(np.power((y - y_hat), 2)) + reg_term
+    elif loss_type == types.LossType.CROSS_ENTROPY:
+        return np.sum(-1.0 * (y * np.log(y_hat) + (1.0 - y) * np.log(1.0 - y_hat))) + reg_term
+
 # clamp the sigmoid
 def sigmoid(x):
     
@@ -70,24 +90,4 @@ def read_json(path):
 def write_json(path, obj):
     with open(path, 'w') as f:
         json.dump(obj, f, indent=4, sort_keys=True)
-
-def compute_example_loss(y, y_hat, loss_type, regularizer):
-    
-    # Account for regularization, if present
-    reg_term = 0.0
-    if regularizer is not None:
-        reg = self.config['regularizer']
-        lambd = regularizer[1]
-        if regularizer[0] == types.RegType.L1:
-            for i in range(1, len(self.layers)):
-                reg_term += lambd * np.sum(np.absolute(self.layers[i].wgts))
-        elif regularizer[0] == types.RegType.L2:
-            for i in range(1, len(self.layers)):
-                reg_term += lambd * np.sum(np.power(self.layers[i].wgts, 2))
-    
-    # We return the sum to account for the multi-class case
-    if loss_type == types.LossType.SQUARED_ERROR:
-        return np.sum(np.power((y - y_hat), 2)) + reg_term
-    elif loss_type == types.LossType.CROSS_ENTROPY:
-        return np.sum(-1.0 * (y * np.log(y_hat) + (1.0 - y) * np.log(1.0 - y_hat))) + reg_term
 

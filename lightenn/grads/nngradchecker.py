@@ -68,7 +68,7 @@ class NNGradChecker:
         for l in self.layers:
             l.forward()
         y_hat_pos = self.layers[len(self.layers)-1].activations
-        loss_pos = utils.compute_example_loss(y, y_hat_pos, self.config['loss_type'], self.config['regularizer'])
+        loss_pos = utils.compute_example_loss(y, y_hat_pos, self.layers, self.config['loss_type'], self.config['regularizer'])
         layer.wgts[i,j] = w_orig
         
         # Perturb weight downwards and compute y-hat
@@ -76,7 +76,7 @@ class NNGradChecker:
         for l in self.layers:
             l.forward()
         y_hat_neg = self.layers[len(self.layers)-1].activations
-        loss_neg = utils.compute_example_loss(y, y_hat_neg, self.config['loss_type'], self.config['regularizer'])
+        loss_neg = utils.compute_example_loss(y, y_hat_neg, self.layers, self.config['loss_type'], self.config['regularizer'])
         layer.wgts[i,j] = w_orig
         
         # Compute numerical gradient between perturbed weights
@@ -117,7 +117,7 @@ class NNGradChecker:
         for l in self.layers:
             l.forward()
         y_hat_pos = self.layers[len(self.layers)-1].activations
-        loss_pos = utils.compute_example_loss(y, y_hat_pos, self.config['loss_type'], self.config['regularizer'])
+        loss_pos = utils.compute_example_loss(y, y_hat_pos, self.layers, self.config['loss_type'], self.config['regularizer'])
         layer.biases[i] = b_orig
         
         # Perturb bias downwards and compute y-hat
@@ -125,7 +125,7 @@ class NNGradChecker:
         for l in self.layers:
             l.forward()
         y_hat_neg = self.layers[len(self.layers)-1].activations
-        loss_neg = utils.compute_example_loss(y, y_hat_neg, self.config['loss_type'], self.config['regularizer'])
+        loss_neg = utils.compute_example_loss(y, y_hat_neg, self.layers, self.config['loss_type'], self.config['regularizer'])
         layer.biases[i] = b_orig
         
         # Compute numerical gradient between perturbed biases
