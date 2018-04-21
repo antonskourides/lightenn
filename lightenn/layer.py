@@ -102,9 +102,11 @@ class Layer:
         self.total_grad_biases.fill(0.0)
 
     # Call this from the NNTrainer to provide flexibility on dropout resets
-    # for both full-batch and SGD
     def load_dropout_mask(self):
-        
+
+        if self.dropout_p == 0.0:
+            return
+
         # There is a chance all neurons will zero out - in this case, regenerate
         non_zero = False
         while non_zero == False:
@@ -197,7 +199,10 @@ class InputLayer:
     # Call this from the NNTrainer to provide flexibility on dropout resets
     # for both full-batch and SGD
     def load_dropout_mask(self):
-    
+
+        if self.dropout_p == 0.0:
+            return
+
         # There is a chance all neurons will zero out - in this case, regenerate
         non_zero = False
         while non_zero == False:
