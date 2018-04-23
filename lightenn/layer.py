@@ -57,15 +57,11 @@ class Layer:
         # Do activation. Note that the activation vals in the previous layer
         # have already had Dropout mask and Inverse Dropout factor applied
         # to them
-        vals = None
-        if isinstance(self.prev, InputLayer):
-            vals = self.prev.values
-        else:
-            vals = self.prev.activations
+        acts = self.prev.activations
         
         wgts = self.wgts
         biases = self.biases
-        self.z_vals = (np.dot(vals.reshape(1,len(vals)), wgts) + biases).reshape((self.size,))
+        self.z_vals = (np.dot(acts.reshape(1,len(acts)), wgts) + biases).reshape((self.size,))
         
         if self.activation_type == types.ActivationType.SIGMOID:
             self.activations = utils.sigmoid(self.z_vals)
@@ -87,7 +83,7 @@ class Layer:
         elif self.activation_type == types.ActivationType.NONE:
             activations_prime = np.ones((self.size,))
 
-        self.grads_wgts = np.dot(vals.reshape((len(vals),1)),
+        self.grads_wgts = np.dot(acts.reshape((len(acts),1)),
                                  activations_prime.reshape((1,len(activations_prime))))
         np.copyto(self.grads_biases, activations_prime)
 
@@ -193,6 +189,7 @@ class InputLayer:
         self.size = size
         self.idx = idx
         self.values = values
+        self.activations = np.zeros((size,), dtype=np.float)
         self.dropout_p = dropout_p
         self.dropout_mask = np.ones((size,), dtype=np.float)
 
@@ -217,5 +214,5 @@ class InputLayer:
 
     # We only 'forward' the input layer to apply its Dropout mask
     def forward(self):
-        self.values = np.divide(np.multiply(self.values, self.dropout_mask), 1.0-self.dropout_p)
+        self.activations = np.divide(np.multiply(self.values, self.dropout_mask), 1.0-self.dropout_p)
 
