@@ -30,8 +30,6 @@ class Layer:
         self.grads_wgts = np.zeros((prev_size, size), dtype=np.float)
         self.grads_biases = np.zeros((size,), dtype=np.float)
         self.acc_grads = np.zeros((size,), dtype=np.float)
-        self.total_grad_wgts = np.zeros((prev_size, size), dtype=np.float) # we use this in SGD
-        self.total_grad_biases = np.zeros((size,), dtype=np.float) # we use this in SGD
         self.prev = None
         self.next = None
         self.dropout_p = dropout_p
@@ -92,10 +90,6 @@ class Layer:
         learning_rate = self.nn_config['learning_rate']
         self.wgts = np.add(self.wgts, np.multiply(learning_rate, np.multiply(-1.0, self.grads_wgts)))
         self.biases = np.add(self.biases, np.multiply(learning_rate, np.multiply(-1.0, self.grads_biases)))
-    
-    def clear_total_grads(self):
-        self.total_grad_wgts.fill(0.0)
-        self.total_grad_biases.fill(0.0)
 
     # Call this from the NNTrainer to provide flexibility on dropout resets
     def load_dropout_mask(self):
