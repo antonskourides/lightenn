@@ -36,10 +36,6 @@ def split_validation(training_x, training_y, val_perc):
 num_epochs = 10
 learning_rate = 0.001
 
-# For selecting random weights and biases
-mu = 0.0
-stddev = 1.0
-
 # Percentage of validation data
 val_perc = 0.2
 

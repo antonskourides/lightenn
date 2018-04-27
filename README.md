@@ -13,7 +13,7 @@ Features supported so far:
 - L1, L2, and Inverted Dropout regularization. Note: in this implementation, 
 `dropout_p` is the probability of *dropping* a node, not keeping it.
 - Stochastic Gradient Descent (SGD) training.
-- Model persistence using the `serialize` package (just calling pickle 
+- Model persistence using the `serialize` package (just calling `pickle` 
 underneath.)
 
 Convolutional Neural Network (CNN) and GPU support coming soon!
