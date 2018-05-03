@@ -53,6 +53,8 @@ class NNTrainer:
                 epoch_error += utils.compute_example_loss(y, y_hat, self.layers,
                                                           self.config['loss_type'],
                                                           self.config['regularizer']) # compute error for this example
+
+                # Compute grads
                 self._backward_compute_grads(y, y_hat)
                 
                 # Adjust the weights and biases
