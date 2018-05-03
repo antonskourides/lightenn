@@ -22,14 +22,10 @@ class NNTrainer:
         self._check_training_set(training_set)
         training_x = training_set[0]
         training_y = training_set[1]
-        validation_x = None
-        validation_y = None
-        
+
         if validation_set is not None:
             self._check_training_set(validation_set)
-            validation_x = validation_set[0]
-            validation_y = validation_set[1]
-    
+
         # Run num_epochs of training:
         for epoch in range(num_epochs):
         
