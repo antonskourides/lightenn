@@ -1,6 +1,5 @@
 import numpy as np
 from lightenn import utils
-from lightenn import types
 
 class NNTrainer:
     
