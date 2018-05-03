@@ -55,7 +55,7 @@ class NNTrainer:
                                                           self.config['regularizer']) # compute error for this example
                 self._backward_compute_grads(y, y_hat)
                 
-                # Adjust the weights and biases based on the average gradients
+                # Adjust the weights and biases
                 self._backward_adjust()
                 
                 # Clear dropout masks, if applicable
