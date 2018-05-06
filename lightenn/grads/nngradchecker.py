@@ -18,7 +18,7 @@ class NNGradChecker:
     # TODO: A full numerical gradient check on a large network can take a very
     # long time. Add a 'stochastic' parameter.
     def check_gradients(self, y, delta, epsilon):
-    
+
         for l_i in range(1, len(self.layers)):
             l = self.layers[l_i]
             for i in range(l.wgts.shape[0]):
