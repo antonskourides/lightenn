@@ -145,7 +145,3 @@ class NNGradChecker:
             return False
                                                                 
         return True
-
-
-
-
