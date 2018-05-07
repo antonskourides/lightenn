@@ -10,9 +10,6 @@ class Layer:
         self.size = size
         self.idx = idx
 
-    def forward(self):
-        pass
-
     def load_dropout_mask(self):
 
         if self.dropout_p == 0.0:
