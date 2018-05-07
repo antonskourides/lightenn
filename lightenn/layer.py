@@ -9,6 +9,8 @@ class Layer:
         self.nn_config = nn_config
         self.size = size
         self.idx = idx
+        self.dropout_p = 0.0
+        self.dropout_mask = None
 
     def load_dropout_mask(self):
 
