@@ -2,14 +2,11 @@ import sys
 sys.path.append("../..")
 import time
 import pickle
-import random
-import os
 import numpy as np
 
 from lightenn import neuralnet
 from lightenn import types
 from lightenn import utils
-from lightenn import serialize
 
 def load_training_data(x_pkl_path, y_pkl_path):
 
@@ -34,10 +31,18 @@ def split_validation(training_x, training_y, val_perc):
 
 # Hyperparams
 num_epochs = 10
-learning_rate = 0.001
+learning_rate = 0.1
+
+# For selecting random weights and biases
+mu = 0.0
+stddev = 1.0
 
 # Percentage of validation data
 val_perc = 0.2
+
+# Delta and Epsilon for gradient checking
+delta = 0.0001
+epsilon = 1e-8
 
 mnist_data_root = './data/'
 training_x, training_y = load_training_data(mnist_data_root + 'mnist_train_x.pkl',
@@ -45,30 +50,24 @@ training_x, training_y = load_training_data(mnist_data_root + 'mnist_train_x.pkl
 training_x, training_y, validation_x, validation_y = split_validation(training_x, training_y, val_perc)
 test_x, test_y = load_training_data(mnist_data_root + 'mnist_test_x.pkl', mnist_data_root + 'mnist_test_y.pkl')
 
-model_path = './mnist_model.pkl'
 np.random.seed(1234)
 np.seterr(all='ignore')
 nn = None
 
-# If a model is already on disk, restore it. Otherwise, train
-if os.path.exists(model_path) and os.path.isfile(model_path):
-    nn = serialize.restore(model_path)
-else:
-    # Build neural net
-    print('Building ...')
-    nn = neuralnet.NeuralNet()
-    nn.add_input(784)
-    nn.add_fully_connected(64, activation_type=types.ActivationType.RELU)
-    nn.add_output(10, activation_type=types.ActivationType.SIGMOID)
-    nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rate)
-    # Train in SGD mode
-    print('Training ...')
-    t_0 = time.time()
-    nn.train_sgd((training_x, training_y), num_epochs, validation_set=(validation_x, validation_y))
-    t_1 = time.time()
-    tot_time = round(t_1 - t_0, 2)
-    print('Total time (in seconds):', tot_time)
-    serialize.save(nn, model_path)
+# Build neural net
+print('Building ...')
+nn = neuralnet.NeuralNet()
+nn.add_input(784)
+nn.add_output(10, activation_type=types.ActivationType.SIGMOID)
+nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rate)
+
+# Train in mini-batch mode
+print('Training ...')
+t_0 = time.time()
+nn.train_mini_batch((training_x, training_y), num_epochs, batch_size=1024, validation_set=(validation_x, validation_y), verbose=True)
+t_1 = time.time()
+tot_time = round(t_1 - t_0, 2)
+print('Total time (in seconds):', tot_time)
 
 # Output test accuracy
 print('Testing ...')
@@ -77,6 +76,6 @@ print('Test accuracy:', nn.get_accuracy((test_x, test_y)))
 # Predict some examples
 rand_examples = np.random.choice(list(range(0, len(test_x))), size=20, replace=False)
 for i in rand_examples:
-    p = np.argmax(nn.predict(test_x[i]))
-    a = np.argmax(test_y[i])
+    p = np.argmax(nn.predict(np.array([test_x[i]])))
+    a = np.argmax(np.array([test_y[i]]))
     print('Predicted:', p, 'Actual:', a)

@@ -12,12 +12,16 @@ class LossType(Enum):
 class LayerType(Enum):
     INPUT = 0
     FULLY_CONNECTED = 1
-    OUTPUT = 2
+    OUTPUT = 4
 
 class RegType(Enum):
-    L2 = 0
-    L1 = 1
+    L1 = 0
+    L2 = 1
 
 class GradType(Enum):
     WEIGHT = 0
     BIAS = 1
+
+class TargetType(Enum):
+    NOVEC = 0
+    CPU = 1

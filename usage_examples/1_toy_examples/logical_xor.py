@@ -31,8 +31,12 @@ def split_validation(training_x, training_y, val_perc):
             training_x[split_idx:len(training_x)], training_y[split_idx:len(training_y)])
 
 # Hyperparams
-num_epochs = 5
-learning_rate = 0.1
+num_epochs = 10
+learning_rate = 1.0
+
+# For selecting random weights and biases
+mu = 0.0
+stddev = 1.0
 
 # Percentage of validation data
 val_perc = 0.2
@@ -47,12 +51,12 @@ np.random.seed(123)
 # Build neural net
 nn = neuralnet.NeuralNet()
 nn.add_input(2)
-nn.add_fully_connected(4, activation_type=types.ActivationType.SIGMOID)
+nn.add_fully_connected(3, activation_type=types.ActivationType.SIGMOID)
 nn.add_output(1, activation_type=types.ActivationType.SIGMOID)
-nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rate)
+nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rate, mu=mu, stddev=stddev)
 
 # Numerical gradient check
-nn.check_gradients(np.array([1.0], dtype=np.float))
+nn.check_gradients(delta=0.00001)
 
 # Train in SGD mode
 t_0 = time.time()
@@ -63,9 +67,10 @@ print('Total time (in seconds):', tot_time)
 
 # Predict. Remember that the output logit is a sigmoid - we must round
 # to get the prediction value
-print('0 XOR 0:', np.round(nn.predict(np.array([0,0], dtype=np.float))))
-print('0 XOR 1:', np.round(nn.predict(np.array([0,1], dtype=np.float))))
-print('1 XOR 0:', np.round(nn.predict(np.array([1,0], dtype=np.float))))
-print('1 XOR 1:', np.round(nn.predict(np.array([1,1], dtype=np.float))))
+print('0 XOR 0:', np.round(nn.predict(np.array([[0,0]], dtype=np.float))))
+print('0 XOR 1:', np.round(nn.predict(np.array([[0,1]], dtype=np.float))))
+print('1 XOR 0:', np.round(nn.predict(np.array([[1,0]], dtype=np.float))))
+print('1 XOR 1:', np.round(nn.predict(np.array([[1,1]], dtype=np.float))))
 
-
+# Batch-predict several inputs at once.
+print(np.round(nn.predict(np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=np.float))))

@@ -31,8 +31,12 @@ def split_validation(training_x, training_y, val_perc):
             training_x[split_idx:len(training_x)], training_y[split_idx:len(training_y)])
 
 # Hyperparams
-num_epochs = 5
-learning_rate = 0.1
+num_epochs = 100
+learning_rate = 1.0
+
+# For selecting random weights and biases
+mu = 0.0
+stddev = 1.0
 
 # Percentage of validation data
 val_perc = 0.2
@@ -51,20 +55,22 @@ nn.add_output(1, activation_type=types.ActivationType.SIGMOID)
 nn.initialize(loss_type=types.LossType.SQUARED_ERROR, learning_rate=learning_rate)
 
 # Numerical gradient check
-nn.check_gradients(np.array([1.0], dtype=np.float))
+nn.check_gradients(delta=0.00001)
 
-# Train in SGD mode
+# Train in full-batch mode
 t_0 = time.time()
-nn.train_sgd((training_x, training_y), num_epochs, validation_set=(validation_x, validation_y))
+nn.train_full((training_x, training_y), num_epochs,
+              validation_set=(validation_x, validation_y))
 t_1 = time.time()
 tot_time = round(t_1 - t_0, 2)
 print('Total time (in seconds):', tot_time)
 
 # Predict. Remember that the output logit is a sigmoid - we must round
 # to get the prediction value
-print('0 OR 0:', np.round(nn.predict(np.array([0,0], dtype=np.float))))
-print('0 OR 1:', np.round(nn.predict(np.array([0,1], dtype=np.float))))
-print('1 OR 0:', np.round(nn.predict(np.array([1,0], dtype=np.float))))
-print('1 OR 1:', np.round(nn.predict(np.array([1,1], dtype=np.float))))
+print('0 OR 0:', np.round(nn.predict(np.array([[0,0]], dtype=np.float))))
+print('0 OR 1:', np.round(nn.predict(np.array([[0,1]], dtype=np.float))))
+print('1 OR 0:', np.round(nn.predict(np.array([[1,0]], dtype=np.float))))
+print('1 OR 1:', np.round(nn.predict(np.array([[1,1]], dtype=np.float))))
 
-
+# Batch-predict several inputs at once.
+print(np.round(nn.predict(np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=np.float))))
