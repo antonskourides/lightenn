@@ -48,8 +48,11 @@ that *no loops are present* in the forward or backward passes.
 This said, fully-vectorized code can be hard to read and understand, especially
 for people who are new to Machine Learning. To help with this, a non-vectorized
 implementation which produces identical output is also included in
-`lightenn.layers.novec`. Non-vectorized runs can be launched by passing
-`target=types.TargetType.NOVEC` to the `neuralnet.initialize()` method.
+`lightenn.layers.novec`. 
+
+*LighteNN always runs vectorized code by default*, however non-vectorized runs 
+can be launched by passing `target=types.TargetType.NOVEC` to the 
+`neuralnet.initialize()` method.
 
 Please note that the non-vectorized code is included for explanatory purposes only,
 and is not appropriate in training runs involving all but the very smallest of
