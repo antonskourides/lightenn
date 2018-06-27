@@ -59,8 +59,8 @@ data-sets.
 
 The `lightenn.neuralnet.NeuralNet` class exposes the main API for using LighteNN.
 Placeholders for static type-checking (valid from Python 3.6 forward) have been left 
-in place in this class, in hopes that static type-checks will eventually be supported
-fully in Python :)
+in place in this class, in hopes that static type-checks will eventually be fully
+supported in Python :)
 
 Thanks for stopping by!
 
