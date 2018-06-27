@@ -31,7 +31,7 @@ A classical Linear Regression is performed in:
 
 `2_linear/`
 
-Efficient MNIST training runs, using both a Multi-Layer Neural Net and Logistic
+Efficient MNIST training runs, using both a Multi-Layer Neural Net and a Logistic
 Regression, are included in:
 
 `3_mnist/`
