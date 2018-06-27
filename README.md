@@ -55,7 +55,7 @@ Please note that the non-vectorized code is included for explanatory purposes on
 and is not appropriate in training runs involving all but the very smallest of
 data-sets.
 
-### The NeuralNet class and Static Type-Checking
+### The NeuralNet Class and Static Type-Checking
 
 The `lightenn.neuralnet.NeuralNet` class exposes the main API for using LighteNN.
 Placeholders for static type-checking (valid from Python 3.6 forward) have been left 
