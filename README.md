@@ -6,7 +6,7 @@ LighteNN is a lightweight Machine Learning library written from scratch, using
 `numpy` and a handful of supporting packages. The backprop implementation was
 re-derived from first principles (except for the initial Cost functions.) 
 
-#### Features
+### Features
 
 Features supported so far:
 
@@ -20,7 +20,7 @@ underneath.)
 
 Convolutional Neural Network (CNN) and GPU support coming soon!
 
-#### Usage Examples
+### Usage Examples
 
 Please see the ./usage_examples/ folder for sample use cases. Some toy examples
 are included in:
@@ -31,15 +31,15 @@ A classical Linear Regression is performed in:
 
 `2_linear/`
 
-MNIST training runs, using both Logistic Regression and a Multi-Layer Neural Net,
-are included in:
+Efficient MNIST training runs, using both a Multi-Layer Neural Net and Logistic
+Regression, are included in:
 
 `3_mnist/`
 
 All the required training data is included with the examples. More examples to 
 follow!
 
-#### Vectorization
+### Vectorization
 
 The code is vectorized wherever feasible. The heart of the backprop implementation 
 resides in the `lightenn.layers.vec` package, and a quick search there will show 
@@ -55,7 +55,7 @@ Please note that the non-vectorized code is included for explanatory purposes on
 and is not appropriate in training runs involving all but the very smallest of
 data-sets.
 
-#### The NeuralNet class and Static Type-Checking
+### The NeuralNet class and Static Type-Checking
 
 The `lightenn.neuralnet.NeuralNet` class exposes the main API for using LighteNN.
 Placeholders for static type-checking (valid from Python 3.6 forward) have been left 
