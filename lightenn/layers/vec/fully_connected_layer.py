@@ -124,7 +124,6 @@ class FullyConnectedLayer(base_layer.BaseLayer):
         in_acts = self.prev.activations
         a = in_acts.reshape(batch_size, in_acts.shape[1], 1)
         b = activations_prime.reshape(batch_size, 1, activations_prime.shape[1])
-        # acts_wrt_wgts = np.einsum('...hij,...hjk->...hik', a, b)
         acts_wrt_wgts = np.multiply(a, b)
         acts_wrt_bias = activations_prime
 
