@@ -12,7 +12,7 @@ class LossType(Enum):
 class LayerType(Enum):
     INPUT = 0
     FULLY_CONNECTED = 1
-    OUTPUT = 4
+    OUTPUT = 2
 
 class RegType(Enum):
     L1 = 0

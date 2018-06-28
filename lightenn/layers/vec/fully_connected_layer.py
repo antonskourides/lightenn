@@ -119,7 +119,7 @@ class FullyConnectedLayer(base_layer.BaseLayer):
         # dimension of the activation layer
         batch_size = self.activations.shape[0]
 
-        # Compute gradient of my activations wrt wgts and biases
+        # Compute gradient of my activations w.r.t. wgts and biases
         activations_prime = self.activation_prime(self.z_vals, self.activation_type)
         in_acts = self.prev.activations
         a = in_acts.reshape(batch_size, in_acts.shape[1], 1)
@@ -127,7 +127,7 @@ class FullyConnectedLayer(base_layer.BaseLayer):
         acts_wrt_wgts = np.multiply(a, b)
         acts_wrt_bias = activations_prime
 
-        # compute grad of cost wrt my activations
+        # compute grad of cost w.r.t. my activations
         self.cost_wrt_activations = self.compute_cost_wrt_activations(batch_size, y, y_hat)
 
         # compute cost w.r.t. weights and biases
