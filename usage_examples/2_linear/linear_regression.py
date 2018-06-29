@@ -25,7 +25,7 @@ def feature_scale(training_x):
     training_x_scaled = np.array(training_x_scaled, dtype=np.float)
     return training_x_scaled, mu_sqft, mu_beds, std_sqft, std_beds
 
-# Skip the header, and any blank lines. Make sure to feature scale the data set
+# Skip the header, and any blank lines
 def load_training_data(path):
     
     training_x = []
@@ -75,6 +75,7 @@ np.random.seed(123)
 # Build neural net
 nn = neuralnet.NeuralNet()
 nn.add_input(2)
+# Since this is a Linear Regression, we do not apply an activation function to the ouput node
 nn.add_output(1, activation_type=types.ActivationType.NONE)
 nn.initialize(loss_type=types.LossType.SQUARED_ERROR, learning_rate=learning_rate)
 
