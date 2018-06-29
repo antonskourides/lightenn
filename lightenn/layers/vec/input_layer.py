@@ -8,6 +8,7 @@ class InputLayer(base_layer.BaseLayer):
 
         super().__init__(nn_config, size, idx)
         self.values = values
+        self.activations = None
         self.dropout_p = dropout_p
         self.dropout_mask = np.ones((self.size,), dtype=np.float)
 
