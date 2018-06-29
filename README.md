@@ -55,7 +55,7 @@ can be launched by passing `target=types.TargetType.NOVEC` to the
 `neuralnet.initialize()` method.
 
 Please note that the non-vectorized code is included for explanatory purposes only,
-and is not appropriate in training runs involving all but the very smallest of
+and is not appropriate for training runs involving all but the very smallest of
 data-sets.
 
 ### The NeuralNet Class and Static Type-Checking
