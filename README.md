@@ -9,7 +9,7 @@ re-derived from first principles (except for the initial Cost functions.)
 ### Requirements
 
 LighteNN requires Python 3.6.x and numpy to run. The current implementation has 
-been tested against numpy 1.13.1. All other modules required by LighteNN 
+been tested against numpy 1.13.1. All the other modules required by LighteNN 
 are contained in the Python 3.6 standard library.
 
 ### Features
