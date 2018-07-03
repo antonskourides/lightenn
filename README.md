@@ -6,6 +6,12 @@ LighteNN is a lightweight Machine Learning library written from scratch, using
 `numpy` and a handful of supporting packages. The backprop implementation was
 re-derived from first principles (except for the initial Cost functions.) 
 
+### Requirements
+
+LighteNN requires Python 3.6.x and numpy to run. The current implementation has 
+been tested against numpy 1.13.1. All other modules required by LighteNN 
+are contained in the Python 3.6 standard library.
+
 ### Features
 
 Features supported so far:
