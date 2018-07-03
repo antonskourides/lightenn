@@ -21,7 +21,7 @@ ERR_ALREADY_INIT = 'Error: neural net has already been initialized.'
 ERR_NO_ADD = 'Error: cannot add more layers after initialization.'
 
 # The neuralnet class exposes the main API for building, initializing, training, and running predictions from networks.
-# We confine our static type-checking to this class, in hopes that one day, Python will fully support them.
+# We confine our static type-checks to this class, in hopes that eventually Python will fully support them.
 class NeuralNet:
 
     def __init__(self):
