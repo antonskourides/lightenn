@@ -106,7 +106,7 @@ def top_k_features(wgts, k=3):
 # Stabilize randomness
 np.random.seed(123)
 
-# Generate traning data
+# Generate training data
 generate_data('./data.csv')
 
 # Percentage of validation data
@@ -140,6 +140,7 @@ print('Total time (in seconds):', tot_time)
 
 # Look at the weights after training. All of the weights attached
 # to useless features/pixels will have low pos+ or neg- values.
+print('Weights after training:')
 print(nn.layers[1].wgts)
 
 # Look at the top-k features in terms of their attached weights.
