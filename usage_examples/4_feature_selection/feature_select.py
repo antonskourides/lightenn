@@ -1,14 +1,36 @@
-####################################################################
+######################################################################
 # Below we perform feature selection by logistic regression analysis.
 #
-# We run a logistic regression using a two-layer neural net. The
-# input layer has size NUM_RANDOM + 2 (for the top and bottom pixels).
-# The sigmoid output layer has 2 logits, corresponding to the classes
-# "top_bright" and "bottom_bright".
+# Our training set consists of vectors of randomly generated pixels,
+# with intensities in the range [0, 255].
+#
+# Each vector has either a bright top-most pixel (at index 0) and a
+# dark bottom-most pixel (at index size-1), or a dark top-most pixel
+# and a bright bottom-most pixel. These two classes are labelled
+# "top_bright" and "bottom_bright", and are generated with
+# approximately equal frequency in the training set.
+#
+# (For our purposes here, we define a "bright" pixel as having
+# intensity >= 235, and a "dark" pixel as having intensity <= 20. All
+# other pixels in the training vectors are randomly generated in the
+# range [0, 255].)
+#
+# Given this setup, only the top and bottom pixels in each training
+# example are predictive of class affiliation. All of the other
+# features/pixels in a given training example are throwaway, and
+# offer no predictive value. We therefore expect feature selection
+# by logistic regression analysis to select for the top and bottom
+# pixels very strongly.
+#
+# To perform this analysis, we run a logistic regression using a
+# two-layer neural net. The input layer has size NUM_RANDOM + 2
+# (for the top and bottom pixels). The sigmoid output layer has
+# two logits, corresponding to the classes "top_bright" and
+# "bottom_bright".
 #
 # After training, we output a top-k of the features with the highest
-# attached weights. We expect our top and bottom pixel features to be
-# the top-2 features.
+# attached weights. As expected, our top and bottom pixel features
+# are the top-2 features.
 
 import sys
 sys.path.append("../..")
@@ -62,11 +84,11 @@ def generate_data(path, num_examples=10000):
     with open(path, 'w') as f:
         f.write(generate_header())
         for i in range(num_examples):
-            type = random.randint(0,1)
+            pxl_type = random.randint(0,1)
             s = None
-            if type == 0:
+            if pxl_type == 0:
                 s = generate_bot_bright()
-            elif type == 1:
+            elif pxl_type == 1:
                 s = generate_top_bright()
             f.write(s + "\n")
 
