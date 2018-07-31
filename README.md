@@ -65,7 +65,7 @@ can be launched by passing `target=types.TargetType.NOVEC` to the
 
 Please note that the non-vectorized code is included for explanatory purposes only,
 and is not appropriate for training runs involving all but the very smallest of
-data-sets.
+datasets.
 
 ### The NeuralNet Class and Static Type-Checking
 
