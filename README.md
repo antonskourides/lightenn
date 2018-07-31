@@ -41,6 +41,10 @@ Regression, are included in:
 
 `3_mnist/`
 
+Feature selection using Logistic Regression Analysis is performed in:
+
+`4_feature_selection`
+
 All the required training data is included with the examples. More examples to 
 follow!
 

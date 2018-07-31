@@ -5,7 +5,7 @@
 # with intensities in the range [0, 255].
 #
 # Each vector has either a bright top-most pixel (at index 0) and a
-# dark bottom-most pixel (at index size-1), or a dark top-most pixel
+# dark bottom-most pixel (at index (size-1)), or a dark top-most pixel
 # and a bright bottom-most pixel. These two classes are labelled
 # "top_bright" and "bottom_bright", and are generated with
 # approximately equal frequency in the training set.
@@ -47,7 +47,7 @@ MIN = 0.                # min pixel value
 MAX = 255.              # max pixel value
 LOW_THRESH = 20.        # a pixel with a value less than 20 is not bright
 HIGH_THRESH = 235.      # a pixel with a value exceeding 235 is bright
-NUM_RANDOM = 100        # the number of random pixels between the top and bottom pixel
+NUM_RANDOM = 1000       # the number of random pixels between the top and bottom pixel
 
 # Generate a training example with a bright bottom pixel,
 # a non-bright top pixel, and NUM_RANDOM randomly-valued
@@ -143,8 +143,8 @@ training_x = utils.rescale(training_x, MIN, MAX, 0., 1.)
 validation_x = utils.rescale(validation_x, MIN, MAX, 0., 1.)
 
 # Hyperparams
-num_epochs = 100
-learning_rate = 1.0 # high learning rate!
+num_epochs = 1000
+learning_rate = 0.5 # high learning rate!
 
 # Build neural net
 nn = neuralnet.NeuralNet()
