@@ -52,7 +52,7 @@ follow!
 
 The code is vectorized wherever feasible. The heart of the backprop implementation 
 resides in the `lightenn.layers.vec` package, and a quick search there will show 
-that *no loops are present* in the forward or backward passes.
+that no loops are present in the forward or backward passes.
 
 This said, fully-vectorized code can be hard to read and understand, especially
 for people who are new to Machine Learning. To help with this, a non-vectorized
