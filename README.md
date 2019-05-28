@@ -4,7 +4,7 @@ Hello Machine Learning Community!
 
 LighteNN is a lightweight Neural Network library written from scratch, using
 `numpy` and a handful of standard modules. The backprop implementation was
-re-derived from first principles (except for the initial Cost functions.) 
+re-derived from first principles. 
 
 ### Requirements
 
