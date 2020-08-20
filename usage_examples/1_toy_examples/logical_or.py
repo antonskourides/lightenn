@@ -31,8 +31,8 @@ def split_validation(training_x, training_y, val_perc):
             training_x[split_idx:len(training_x)], training_y[split_idx:len(training_y)])
 
 # Hyperparams
-num_epochs = 100
-learning_rate = 1.0
+num_epochs = 1000
+learning_rate = .1
 
 # For selecting random weights and biases
 mu = 0.0
@@ -46,13 +46,13 @@ training_x, training_y = load_training_data('./data/or_data.csv')
 training_x, training_y, validation_x, validation_y = split_validation(training_x, training_y, val_perc)
 
 # Stabilize randomness
-np.random.seed(123)
+np.random.seed(1234)
 
 # Build neural net
 nn = neuralnet.NeuralNet()
 nn.add_input(2)
 nn.add_output(1, activation_type=types.ActivationType.SIGMOID)
-nn.initialize(loss_type=types.LossType.SQUARED_ERROR, learning_rate=learning_rate)
+nn.initialize(loss_type=types.LossType.CROSS_ENTROPY, learning_rate=learning_rate)
 
 # Numerical gradient check
 nn.check_gradients(delta=0.00001)
