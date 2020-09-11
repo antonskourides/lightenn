@@ -20,7 +20,9 @@ Convolutional Neural Network (CNN) and GPU support coming soon!
 
 ### Usage Examples
 
-Please see the ./usage_examples/ folder for sample use cases. Efficient MNIST training runs, using both a Multi-Layer Neural Net and a One-Layer Logistic Regression, are included in:
+Please see the ./usage_examples/ folder for sample use cases. 
+
+Efficient MNIST training runs, using both a Multi-Layer Neural Net and a One-Layer Logistic Regression, are included in:
 
 `mnist/`
 
