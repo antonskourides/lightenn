@@ -1,6 +1,6 @@
 # LighteNN
 
-LighteNN is a lightweight Neural Network library written from scratch, using `numpy` and a handful of standard modules. The backprop implementation was re-derived from scratch using first principles. 
+LighteNN is a lightweight Neural Network library written from scratch, using `numpy` and a handful of standard library modules. The backprop implementation was re-derived from scratch using first principles. 
 
 ### Requirements
 
